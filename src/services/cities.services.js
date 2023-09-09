@@ -1,5 +1,14 @@
-import connection from "../database/database.connection.js";
+import { CityRepository } from "../repositories/cities.repositories.js";
 
-export const citiesRepository = {
-  
-};
+class CityService {
+  async createCity(name) {
+    try {
+      const newCity = await CityRepository.createCity(name);
+      return newCity;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+export default CityService;
