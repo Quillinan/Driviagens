@@ -1,5 +1,18 @@
-import connection from "../database/database.connection.js";
+import { FlightRepository } from "../repositories/flights.repositories.js";
 
-export const flightsRepository = {
-  
-};
+class FlightService {
+  async createFlight(origin, destination, date) {
+    try {
+      const newFlight = await FlightRepository.createFlight(
+        origin,
+        destination,
+        date
+      );
+      return newFlight;
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+export default FlightService;
