@@ -11,4 +11,6 @@ flightsRouter.post(
   flightController.createFlight
 );
 
+flightsRouter.get("/", flightController.getFlights);
+
 export default flightsRouter;

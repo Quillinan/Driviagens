@@ -13,6 +13,20 @@ class FlightService {
       throw error;
     }
   }
+
+  async getFlights(origin, destination, smallerDate, biggerDate) {
+    try {
+      const flights = await FlightRepository.getFlights(
+        origin,
+        destination,
+        smallerDate,
+        biggerDate
+      );
+      return flights;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default FlightService;
