@@ -10,11 +10,10 @@ async function validateDates(smallerDate, biggerDate) {
   }).validate({ smallerDate, biggerDate });
 
   if (result.error) {
-    return {
-      status: 422,
-      message: "O formato de data esperado é: dd-mm-aaaa",
-    };
+    return false;
   }
+
+  return true;
 }
 
 export const FlightRepository = {
@@ -78,7 +77,15 @@ export const FlightRepository = {
       `;
 
       if (smallerDate && biggerDate) {
-        await validateDates(smallerDate, biggerDate);
+        const isValidDateRange = await validateDates(smallerDate, biggerDate);
+
+        if (!isValidDateRange) {
+          return {
+            status: 422,
+            message: "O formato de data esperado é: dd-mm-aaaa",
+          };
+        }
+
         query += ` WHERE f.date >= $1 AND f.date <= $2`;
         values.push(smallerDate, biggerDate);
       }
