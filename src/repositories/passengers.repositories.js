@@ -37,7 +37,7 @@ export const PassengerRepository = {
       const passengersTravels = result.rows;
 
       if (passengersTravels.length > 10) {
-        throw {
+        return {
           status: 500,
           message: "Too many results",
         };

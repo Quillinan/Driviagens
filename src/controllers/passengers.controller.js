@@ -26,10 +26,8 @@ export const passengersController = {
         name
       );
 
-      if (passengersTravels.status === 422) {
-        res.status(422).json({ error: passengersTravels.message });
-      } else if (passengersTravels.status === 400) {
-        res.status(400).json({ error: passengersTravels.message });
+      if (passengersTravels.status === 500) {
+        res.status(500).json({ error: passengersTravels.message });
       } else {
         res.status(200).json(passengersTravels);
       }
