@@ -12,4 +12,40 @@ export const PassengerRepository = {
       throw error;
     }
   },
+  getPassagersTravels: async (name) => {
+    try {
+      let query = `
+        SELECT (p.firstname || ' ' || p.lastname) AS passenger, COUNT(t.id) AS travels
+        FROM passengers p
+        LEFT JOIN travels t ON p.id = t.passengerId
+      `;
+
+      const values = [];
+
+      if (name) {
+        query += ` WHERE (p.firstname || ' ' || p.lastname) ILIKE $1`;
+        values.push(`%${name}%`);
+      }
+
+      query += `
+        GROUP BY passenger
+        ORDER BY travels DESC
+        LIMIT 10
+      `;
+
+      const result = await connection.query(query, values);
+      const passengersTravels = result.rows;
+
+      if (passengersTravels.length > 10) {
+        throw {
+          status: 500,
+          message: "Too many results",
+        };
+      }
+
+      return passengersTravels;
+    } catch (error) {
+      throw error;
+    }
+  },
 };

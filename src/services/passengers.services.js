@@ -12,6 +12,17 @@ class PassengerService {
       throw error;
     }
   }
+
+  async getPassagersTravels(name) {
+    try {
+      const passengersTravels = await PassengerRepository.getPassagersTravels(
+        name
+      );
+      return passengersTravels;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default PassengerService;

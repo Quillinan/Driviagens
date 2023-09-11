@@ -11,4 +11,6 @@ passengersRouter.post(
   passengersController.createPassenger
 );
 
+passengersRouter.get("/travels", passengersController.getPassagersTravels);
+
 export default passengersRouter;
